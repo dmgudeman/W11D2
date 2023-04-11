@@ -57,10 +57,24 @@ function Autocomplete (props) {
 
     return matches;
   }
-
-    const results = matches().map((result) => {
+   
+    const results = matches().map((props, idx) => {
+      console.log(props, 'props in results')
+      console.log(idx, 'iiiiddddxxxx')
+     
       return (
-        <TransitionItem result={result} />
+        <TransitionItem selectName={selectName}/>
+    //     <CSSTransition
+    //       nodeRef={nodeRef}
+    //       key={props.result}
+    //       classNames="result"
+    //       timeout={{ enter: 500, exit: 300 }}
+    //     >
+    //       {/* <li ref={nodeRef} className="nameLi" onClick={props.selectName}> */}
+    //         <TransitionItem  ref={nodeRef} className="nameLi" onClick={props.selectName}/>
+    //       {/* </li> */}
+    // </CSSTransition>
+        
       )
     });
 
@@ -77,7 +91,7 @@ function Autocomplete (props) {
           />
           {showList && (
             <ul className="auto-dropdown">
-              <TransitionGroup>
+              <TransitionGroup selectName={selectName}>
                 {results}
               </TransitionGroup>
             </ul>
@@ -88,21 +102,22 @@ function Autocomplete (props) {
   
 }
 
-function TransitionItem({ result }) {
+function TransitionItem(props) {
 
   const nodeRef = useRef();
+ 
 
   return(
     <CSSTransition
           nodeRef={nodeRef}
-          key={result}
           classNames="result"
           timeout={{ enter: 500, exit: 300 }}
         >
-          <li ref={nodeRef} className="nameLi" onClick={selectName}>
-            {result}
+          <li ref={nodeRef} className="nameLi" onClick={props.selectName}>
+      
           </li>
     </CSSTransition>
+   
   )
 }
 
